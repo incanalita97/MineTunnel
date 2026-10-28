@@ -1,0 +1,3 @@
+@echo off
+echo Opening MineTunnel in GitHub Desktop...
+start "" "C:\Users\SPIRO\AppData\Local\GitHubDesktop\GitHubDesktop.exe" "%~dp0."
