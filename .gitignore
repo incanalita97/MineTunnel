@@ -1,0 +1,17 @@
+# User settings & secrets
+settings.ini
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs & temp files
+*.log
+bin/*.log
+
+# Object directories
+[Oo]bj/
+[Tt]emp/
+*.tmp
+.vs/
+.idea/

@@ -1,0 +1,48 @@
+name: Build & Verify MineTunnel
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild and CSC
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build MineTunnel Applications & Installer
+      shell: cmd
+      run: |
+        build.bat
+
+    - name: Run Integration Tests
+      shell: cmd
+      run: |
+        bin\TestRunner.exe
+
+    - name: Run Network Resilience & Security Suite
+      shell: cmd
+      run: |
+        bin\NetworkResilienceTest.exe
+
+    - name: Run Protocol & Framing Test Suite
+      shell: powershell
+      run: |
+        powershell -NoProfile -ExecutionPolicy Bypass -File .\test_suite.ps1
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: MineTunnel-Windows-Binaries
+        path: |
+          bin/MineTunnel.exe
+          bin/MineTunnelRelay.exe
+          bin/MineTunnelSetup.exe
