@@ -15,3 +15,7 @@ bin/*.log
 *.tmp
 .vs/
 .idea/
+
+# Local utility scripts
+open_in_github_desktop.bat
+push_to_github.bat
