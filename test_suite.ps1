@@ -1,7 +1,8 @@
 # MineTunnel Automated Test Suite
 $ErrorActionPreference = "Stop"
 
-$exePath = "C:\Users\SPIRO\.gemini\antigravity\scratch\remote-admin\bin\MineTunnel.exe"
+$scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { "." }
+$exePath = Join-Path $scriptDir "bin\MineTunnel.exe"
 Write-Host "Loading assembly: $exePath" -ForegroundColor Cyan
 $asm = [System.Reflection.Assembly]::LoadFrom($exePath)
 

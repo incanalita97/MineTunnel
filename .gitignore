@@ -5,16 +5,16 @@ settings.ini
 *.userosscache
 *.sln.docstates
 
-# Logs & temp files
-*.log
-bin/*.log
-
-# Object directories
+# Build outputs
+[Bb]in/
 [Oo]bj/
 [Tt]emp/
 *.tmp
 .vs/
 .idea/
+
+# Logs
+*.log
 
 # Local utility scripts
 open_in_github_desktop.bat

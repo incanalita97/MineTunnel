@@ -16,7 +16,7 @@ if not exist bin mkdir bin
 
 echo Using C# Compiler: %CSC%
 echo.
-echo [1/3] Compiling MineTunnel.exe ...
+echo [1/5] Compiling MineTunnel.exe ...
 
 %CSC% /target:winexe ^
       /out:bin\MineTunnel.exe ^
@@ -32,9 +32,9 @@ if %ERRORLEVEL% neq 0 (
     exit /b %ERRORLEVEL%
 )
 
-echo [1/3] SUCCESS: bin\MineTunnel.exe created.
+echo [1/5] SUCCESS: bin\MineTunnel.exe created.
 echo.
-echo [2/3] Compiling Zero-Port-Forwarding Relay (MineTunnelRelay.exe) ...
+echo [2/5] Compiling Zero-Port-Forwarding Relay (MineTunnelRelay.exe) ...
 
 %CSC% /target:exe ^
       /out:bin\MineTunnelRelay.exe ^
@@ -49,9 +49,10 @@ if %ERRORLEVEL% neq 0 (
     exit /b %ERRORLEVEL%
 )
 
-echo [2/3] SUCCESS: bin\MineTunnelRelay.exe created.
+echo [2/5] SUCCESS: bin\MineTunnelRelay.exe created.
 echo.
-echo [3/3] Compiling Windows Installer (MineTunnelSetup.exe) ...
+echo [3/5] Compiling Windows Installer (MineTunnelSetup.exe) ...
+
 
 %CSC% /target:winexe ^
       /out:bin\MineTunnelSetup.exe ^
@@ -73,9 +74,9 @@ if %ERRORLEVEL% neq 0 (
     exit /b %ERRORLEVEL%
 )
 
-echo [3/3] SUCCESS: bin\MineTunnelSetup.exe created.
+echo [3/5] SUCCESS: bin\MineTunnelSetup.exe created.
 echo.
-echo [4/4] Compiling Test Runner (TestRunner.exe) ...
+echo [4/5] Compiling Test Runner (TestRunner.exe) ...
 
 %CSC% /target:exe ^
       /out:bin\TestRunner.exe ^
@@ -91,7 +92,24 @@ if %ERRORLEVEL% neq 0 (
     exit /b %ERRORLEVEL%
 )
 
-echo [4/4] SUCCESS: bin\TestRunner.exe created.
+echo [4/5] SUCCESS: bin\TestRunner.exe created.
+echo.
+echo [5/5] Compiling Resilience Test Suite (NetworkResilienceTest.exe) ...
+
+%CSC% /target:exe ^
+      /out:bin\NetworkResilienceTest.exe ^
+      /optimize+ ^
+      /platform:anycpu ^
+      /r:System.dll,System.Core.dll,System.Security.dll ^
+      /recurse:Common\*.cs /recurse:Core\*.cs NetworkResilienceTest.cs
+
+if %ERRORLEVEL% neq 0 (
+    echo.
+    echo [FAILED] Compilation of NetworkResilienceTest.exe failed with error %ERRORLEVEL%.
+    exit /b %ERRORLEVEL%
+)
+
+echo [5/5] SUCCESS: bin\NetworkResilienceTest.exe created.
 echo.
 echo ========================================================
 echo  [BUILD COMPLETE]
@@ -99,4 +117,6 @@ echo  - Standalone Application   : bin\MineTunnel.exe
 echo  - Zero-Port-Forward Relay  : bin\MineTunnelRelay.exe
 echo  - Windows Installer (.exe) : bin\MineTunnelSetup.exe
 echo  - Integration Test Runner  : bin\TestRunner.exe
+echo  - Resilience Test Suite   : bin\NetworkResilienceTest.exe
 echo ========================================================
+
